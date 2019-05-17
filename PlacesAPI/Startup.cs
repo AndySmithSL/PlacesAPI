@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PlacesAPI.Context;
 
 namespace PlacesAPI
 {
@@ -25,7 +27,22 @@ namespace PlacesAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                builder => builder.WithOrigins("http://localhost:7000"));
+            });
+
+            //var connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\AndyS\OneDrive\Documents\Visual Studio 2017\Projects\MvcFactbook\MvcFactbook\Database\Factbook.mdf;Integrated Security=True;Connect Timeout=30";
+            var connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asmith\source\repos\PlacesApi\PlacesApi\Database\Travel.mdf;Integrated Security=True;Connect Timeout=30";
+            services.AddDbContext<TravelContext>(options => options.UseSqlServer(connection));
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                //options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                //options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,10 +54,10 @@ namespace PlacesAPI
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
+            app.UseCors("AllowMyOrigin");
             app.UseHttpsRedirection();
             app.UseMvc();
         }

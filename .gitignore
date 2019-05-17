@@ -4,3 +4,5 @@
 
 /.vs/PlacesAPI/v16
 /PlacesAPI/obj
+/PlacesAPI/bin/Debug/netcoreapp2.2
+/.vs/PlacesAPI/config
