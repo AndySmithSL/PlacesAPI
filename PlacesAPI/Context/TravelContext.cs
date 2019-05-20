@@ -13,29 +13,18 @@ namespace PlacesAPI.Context
             : base(options) { }
 
         public virtual DbSet<Continent> Continent { get; set; }
+        public virtual DbSet<Drive> Drive { get; set; }
 
 
 
-        //public virtual DbSet<ArmedForceFlag> ArmedForceFlag { get; set; }
-        //public virtual DbSet<Branch> Branch { get; set; }
-        //public virtual DbSet<BranchFlag> BranchFlag { get; set; }
-        //public virtual DbSet<BranchType> BranchType { get; set; }
-        //public virtual DbSet<Builder> Builder { get; set; }
-        //public virtual DbSet<Flag> Flag { get; set; }
-        //public virtual DbSet<Ship> Ship { get; set; }
-        //public virtual DbSet<ShipCategory> ShipCategory { get; set; }
-        //public virtual DbSet<ShipType> ShipType { get; set; }
-        //public virtual DbSet<ShipSubType> ShipSubType { get; set; }
-        //public virtual DbSet<ShipClass> ShipClass { get; set; }
-        //public virtual DbSet<ShipService> ShipService { get; set; }
-        //public virtual DbSet<SucceedingClass> SucceedingClass { get; set; }
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\AndyS\\source\\repos\\PlacesAPI\\PlacesAPI\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
-                //optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\asmith\\source\\repos\\PlacesApi\\PlacesApi\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
+                //optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\AndyS\\source\\repos\\PlacesAPI\\PlacesAPI\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
+                optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\asmith\\source\\repos\\PlacesApi\\PlacesApi\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
             }
         }
 
@@ -58,210 +47,133 @@ namespace PlacesAPI.Context
                     .HasConstraintName("FK_Continent_Continent");
             });
 
-            //// Flag
-            //modelBuilder.Entity<Flag>(entity =>
-            //{
-            //    entity.Property(e => e.Name)
-            //        .IsRequired()
-            //        .HasMaxLength(100);
+            // Drive 
+            modelBuilder.Entity<Drive>(entity =>
+            {
+                entity.Property(e => e.Name).IsRequired();
+            });
 
-            //    entity.Property(e => e.Code)
-            //        .IsRequired()
-            //        .HasMaxLength(6);
+            // Drive Leg
+            modelBuilder.Entity<DriveLeg>(entity =>
+            {
+                entity.Property(e => e.Number)
+                    .IsRequired();
 
-            //    entity.Property(e => e.Active)
-            //        .IsRequired();
-            //});
+                entity.Property(e => e.DriveId)
+                    .IsRequired();
 
-            //// Armed Force Flag
-            //modelBuilder.Entity<ArmedForceFlag>(entity =>
-            //{
-            //    entity.Property(e => e.ArmedForceId)
-            //        .IsRequired();
+                entity.Property(e => e.OriginId)
+                    .IsRequired();
 
-            //    entity.Property(e => e.FlagId)
-            //        .IsRequired();
+                entity.Property(e => e.DestinationId)
+                    .IsRequired();
 
-            //    entity.HasOne(x => x.ArmedForce)
-            //        .WithMany(y => y.ArmedForceFlags)
-            //        .HasForeignKey(y => y.ArmedForceId)
-            //        .HasConstraintName("FK_ArmedForceFlag_To_ArmedForce");
+                entity.HasOne(d => d.Drive)
+                    .WithMany(p => p.DriveLegs)
+                    .HasForeignKey(d => d.DriveId)
+                    .HasConstraintName("FK_DriveLeg_To_Drive");
 
-            //    entity.HasOne(x => x.Flag)
-            //        .WithMany(f => f.ArmedForceFlags)
-            //        .HasForeignKey(f => f.FlagId)
-            //        .HasConstraintName("FK_ArmedForceFlag_To_Flag");
-            //});
+                entity.HasOne(d => d.Origin)
+                    .WithMany(p => p.OriginLegs)
+                    .HasForeignKey(d => d.OriginId)
+                    .HasConstraintName("FK_DriveLeg_To_Place_Origin");
 
-            //// Branch
-            //modelBuilder.Entity<Branch>(entity =>
-            //{
-            //    entity.Property(e => e.Name)
-            //        .IsRequired()
-            //        .HasMaxLength(50);
+                entity.HasOne(d => d.Destination)
+                    .WithMany(p => p.DestinationLegs)
+                    .HasForeignKey(d => d.DestinationId)
+                    .HasConstraintName("FK_DriveLeg_To_Place_Destination");
+            });
 
-            //    entity.Property(e => e.ArmedForceId)
-            //        .IsRequired();
+            // Flag
+            modelBuilder.Entity<Flag>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100);
 
-            //    entity.Property(e => e.BranchTypeId)
-            //        .IsRequired();
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(6)
+                    .HasDefaultValueSql("((0))");
 
-            //    entity.Property(e => e.HasEmblem)
-            //        .IsRequired();
+                entity.Property(e => e.Active)
+                    .IsRequired();
+            });
 
-            //    entity.HasOne(x => x.ArmedForce)
-            //        .WithMany(x => x.Branches)
-            //        .HasForeignKey(x => x.ArmedForceId)
-            //        .HasConstraintName("FK_Branch_To_ArmedForce");
+            // Place
+            modelBuilder.Entity<Place>(entity =>
+            {
+                entity.Property(e => e.Name).IsRequired();
+            });
 
-            //    entity.HasOne(x => x.BranchType)
-            //        .WithMany(y => y.Branches)
-            //        .HasForeignKey(y => y.BranchTypeId)
-            //        .HasConstraintName("FK_Branch_To_BranchType");
-            //});
+            // Place Group
+            modelBuilder.Entity<PlaceGroup>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired();
 
-            //// Branch Flag
-            //modelBuilder.Entity<BranchFlag>(entity =>
-            //{
-            //    entity.Property(e => e.BranchId)
-            //        .IsRequired();
+                entity.Property(e => e.Icon)
+                    .HasMaxLength(50);
+            });
 
-            //    entity.Property(e => e.FlagId)
-            //        .IsRequired();
+            modelBuilder.Entity<PlaceGroupSet>(entity =>
+            {
+                entity.HasOne(d => d.Place)
+                    .WithMany(p => p.PlaceGroupSets)
+                    .HasForeignKey(d => d.PlaceId)
+                    .HasConstraintName("FK_PlaceGroupSet_To_Place");
 
-            //    entity.HasOne(x => x.Branch)
-            //        .WithMany(y => y.BranchFlags)
-            //        .HasForeignKey(y => y.BranchId)
-            //        .HasConstraintName("FK_BranchFlag_To_Branch");
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.PlaceGroupSets)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_PlaceGroupSet_To_PlaceGroup");
+            });
 
-            //    entity.HasOne(x => x.Flag)
-            //        .WithMany(f => f.BranchFlags)
-            //        .HasForeignKey(f => f.FlagId)
-            //        .HasConstraintName("FK_BranchFlag_To_Flag");
-            //});
+            modelBuilder.Entity<Territory>(entity =>
+            {
+                entity.Property(e => e.Isocode)
+                    .HasColumnName("ISOCode")
+                    .HasMaxLength(10);
 
-            //// Branch Type
-            //modelBuilder.Entity<BranchType>(entity =>
-            //{
-            //    entity.Property(e => e.Type)
-            //        .IsRequired()
-            //        .HasMaxLength(50);
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-            //    entity.Property(e => e.Code)
-            //        .IsRequired()
-            //        .HasMaxLength(5);
-            //});
+                entity.HasOne(d => d.Continent)
+                    .WithMany(p => p.Territories)
+                    .HasForeignKey(d => d.ContinentId)
+                    .HasConstraintName("FK_Territory_Continent");
 
-            //// Builder
-            //modelBuilder.Entity<Builder>(entity =>
-            //{
-            //    entity.Property(e => e.Name)
-            //        .IsRequired();
-            //});
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
+                    .HasForeignKey(d => d.ParentId)
+                    .HasConstraintName("FK_Territory_Territory");
 
-            //// Ship
-            //modelBuilder.Entity<Ship>(entity =>
-            //{
-            //    entity.Property(e => e.Name)
-            //        .IsRequired();
+                entity.HasOne(d => d.TerritoryType)
+                    .WithMany(p => p.Territories)
+                    .HasForeignKey(d => d.TerritoryTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Territory_TerritoryType");
+            });
 
-            //    entity.HasOne(x => x.Builder)
-            //        .WithMany(y => y.Ships)
-            //        .HasForeignKey(y => y.BuilderId)
-            //        .HasConstraintName("FK_Ship_To_Builder");
-            //});
+            modelBuilder.Entity<TerritoryPlace>(entity =>
+            {
+                entity.HasOne(d => d.Territory)
+                    .WithMany(p => p.TerritoryPlaces)
+                    .HasForeignKey(d => d.TerritoryId)
+                    .HasConstraintName("FK_TerritoryPlace_Territory");
 
-            //// Ship Category
-            //modelBuilder.Entity<ShipCategory>(entity =>
-            //{
-            //    entity.Property(e => e.Category)
-            //        .IsRequired();
-            //});
+                entity.HasOne(d => d.Place)
+                    .WithMany(p => p.TerritoryPlaces)
+                    .HasForeignKey(d => d.PlaceId)
+                    .HasConstraintName("FK_TerritoryPlace_Place");
+            });
 
-            //// Ship Type
-            //modelBuilder.Entity<ShipType>(entity =>
-            //{
-            //    entity.Property(e => e.Type)
-            //        .IsRequired()
-            //        .HasMaxLength(50);
+            modelBuilder.Entity<TerritoryType>(entity =>
+            {
+                entity.Property(e => e.Type).IsRequired();
+            });
 
-            //    entity.HasOne(x => x.ShipCategory)
-            //        .WithMany(x => x.ShipTypes)
-            //        .HasForeignKey(x => x.ShipCategoryId)
-            //        .HasConstraintName("FK_ShipType_To_ShipCategory");
-            //});
-
-            //// Ship Sub Type
-            //modelBuilder.Entity<ShipSubType>(entity =>
-            //{
-            //    entity.Property(e => e.Type)
-            //        .IsRequired();
-
-            //    entity.HasOne(x => x.ShipType)
-            //        .WithMany(x => x.ShipSubTypes)
-            //        .HasForeignKey(x => x.ShipTypeId)
-            //        .HasConstraintName("FK_ShipSubType_To_ShipType");
-            //});
-
-            //// Ship Class
-            //modelBuilder.Entity<ShipClass>(entity =>
-            //{
-            //    entity.Property(e => e.Name)
-            //        .IsRequired();
-            //});
-
-            //// Ship Service
-            //modelBuilder.Entity<ShipService>(entity =>
-            //{
-            //    entity.Property(e => e.Penant)
-            //        .HasMaxLength(10);
-
-            //    entity.Property(e => e.Name)
-            //        .IsRequired();
-
-            //    entity.HasOne(x => x.Ship)
-            //        .WithMany(x => x.ShipServices)
-            //        .HasForeignKey(x => x.ShipId)
-            //        .HasConstraintName("FK_ShipService_To_Ship");
-
-            //    entity.HasOne(x => x.ShipClass)
-            //        .WithMany(x => x.ShipServices)
-            //        .HasForeignKey(x => x.ShipClassId)
-            //        .HasConstraintName("FK_ShipService_To_ShipClass");
-
-            //    entity.HasOne(x => x.ShipSubType)
-            //        .WithMany(x => x.ShipServices)
-            //        .HasForeignKey(x => x.ShipSubTypeId)
-            //        .HasConstraintName("FK_ShipService_To_ShipSubType");
-
-            //    entity.HasOne(x => x.Branch)
-            //        .WithMany(x => x.ShipServices)
-            //        .HasForeignKey(x => x.BranchId)
-            //        .HasConstraintName("FK_ShipService_To_Branch");
-
-            //    entity.Property(x => x.Active)
-            //        .IsRequired();
-            //});
-
-            //// Succeeding Class
-            //modelBuilder.Entity<SucceedingClass>(entity =>
-            //{
-            //    entity.Property(e => e.ShipClassId)
-            //        .IsRequired();
-
-            //    entity.Property(e => e.SucceedingClassId)
-            //        .IsRequired();
-
-            //    entity.HasOne(x => x.PrecedingShipClass)
-            //        .WithMany(y => y.SucceedingClasses)
-            //        .HasForeignKey(y => y.ShipClassId)
-            //        .HasConstraintName("FK_SucceedingClass_ShipClassId_To_ShipClass");
-
-            //    entity.HasOne(x => x.SucceedingShipClass)
-            //        .WithMany(f => f.PrecedingClasses)
-            //        .HasForeignKey(f => f.SucceedingClassId)
-            //        .HasConstraintName("FK_SucceedingClass_SucceedingClassId_To_ShipClass");
-            //});
         }
     }
 }
