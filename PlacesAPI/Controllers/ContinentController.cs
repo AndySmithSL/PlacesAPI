@@ -55,6 +55,11 @@ namespace PlacesAPI.Controllers
             return id => Context
                         .Continent
                         .Include(x => x.Parent)
+                            .ThenInclude(x => x.Children)
+                                .ThenInclude(x => x.Territories)
+                        .Include(x => x.Children)
+                            .ThenInclude(x => x.Territories)
+                        .Include(x => x.Territories)
                         .FirstOrDefault(x => x.Id == id);
         }
 
@@ -63,6 +68,9 @@ namespace PlacesAPI.Controllers
             return () => Context
                         .Continent
                         .Include(x => x.Parent)
+                        .Include(x => x.Children)
+                            .ThenInclude(x => x.Territories)
+                        .Include(x => x.Territories)
                         .AsEnumerable();
         }
 

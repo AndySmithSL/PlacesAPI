@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PlacesAPI.Code.Util;
 
 namespace PlacesAPI.Views.Base
 {
@@ -13,8 +14,11 @@ namespace PlacesAPI.Views.Base
         #region Database Properties
 
         public int Id => ViewObject.Id;
+
         public string Name => ViewObject.Name;
+
         public string Code => ViewObject.Code;
+
         public int? ParentId => ViewObject.ParentId;
 
         #endregion Database Properties
@@ -24,18 +28,18 @@ namespace PlacesAPI.Views.Base
         [JsonIgnore]
         public ContinentView Parent => GetView<ContinentView, Continent>(ViewObject.Parent);
 
+        [JsonIgnore]
+        public ICollection<ContinentView> Children => GetViewList<ContinentView, Continent>(ViewObject.Children);
+
+        [JsonIgnore]
+        public ICollection<TerritoryView> Territories => GetViewList<TerritoryView, Territory>(ViewObject.Territories);
+
+        [JsonIgnore]
+        public ICollection<TerritoryView> SubContinentTerritories => GetViewList<TerritoryView, Territory>(ViewObject.SubContinentTerritories);
+
         #endregion Foreign Properties
 
         #region Other Properties
-
-        //public string StartLabel => CommonFunctions.GetDateLabel(Start);
-        //public string EndLabel => CommonFunctions.GetDateLabel(End);
-
-        //[JsonIgnore]
-        //public DateTime AbsoluteStart => Start.HasValue ? Start.Value : DateTime.MinValue;
-
-        //[JsonIgnore]
-        //public DateTime AbsoluteEnd => End.HasValue ? End.Value : DateTime.MaxValue;
 
         public override string ListName => Name + ":" + Code;
 

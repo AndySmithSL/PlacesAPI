@@ -2,18 +2,25 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
+using PlacesAPI.Code.Util;
 
 namespace PlacesAPI.Models
 {
     public partial class Continent : IIdentifiable
     {
+        #region Constructor
+
         public Continent()
         {
             Children = new HashSet<Continent>();
-            //Territories = new HashSet<Territory>();
+            Territories = new HashSet<Territory>();
         }
+
+        #endregion Constructor
+
+        #region Database Properties
 
         [Key]
         public int Id { get; set; }
@@ -26,15 +33,25 @@ namespace PlacesAPI.Models
         [Required]
         public string Code { get; set; }
 
-        [Display(Name = "Parent Id")]
         public int? ParentId { get; set; }
 
-        [Display(Name = "Parent")]
+        #endregion Database Properties
+
+        #region Foreign Properties
+
         public Continent Parent { get; set; }
 
-        [Display(Name = "Subcontinents")]
         public ICollection<Continent> Children { get; set; }
 
-        //public ICollection<Territory> Territories { get; set; }
+        public ICollection<Territory> Territories { get; set; }
+
+        #endregion Foreign Properties
+
+        #region Other Properties
+
+        [NotMapped]
+        public ICollection<Territory> SubContinentTerritories => Children.SelectMany(f => f.Territories).Distinct(f => f.Id).ToList();
+
+        #endregion Other Properties
     }
 }
