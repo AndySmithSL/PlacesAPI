@@ -1,4 +1,5 @@
-﻿using PlacesAPI.Code.Classes;
+﻿using Newtonsoft.Json;
+using PlacesAPI.Code.Classes;
 using PlacesAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -10,40 +11,33 @@ namespace PlacesAPI.Views.Base
 {
     public class FlagView : View<Flag>
     {
-        private const string FLAG_PATH = "/images/flags/";
+        #region Private Constants
+
         private const string FLAG_EXTENSION = ".png";
+
+        #endregion Private Constants
 
         #region Database Properties
 
-        [Key]
         public int Id => ViewObject.Id;
 
-        [StringLength(100)]
-        [Required]
         public string Name => ViewObject.Name;
 
-        [StringLength(6)]
-        [Required]
         public string Code => ViewObject.Code;
 
         public string Description => ViewObject.Description;
 
-        [Display(Name = "Start Date")]
         public DateTime? StartDate => ViewObject.StartDate;
 
-        [Display(Name = "End Date")]
         public DateTime? EndDate => ViewObject.EndDate;
 
-        [Required]
         public bool Active => ViewObject.Active;
 
         #endregion Database Properties
 
         #region Foreign Properties
 
-        //public ContinentView Parent => GetView<ContinentView, Continent>(ViewObject.Parent);
-        //public ICollection<ContinentView> Children => GetViewList<ContinentView, Continent>(ViewObject.Children);
-
+        [JsonIgnore]
         public ICollection<TerritoryView> Territories => GetViewList<TerritoryView, Territory>(ViewObject.Territories);
 
         #endregion Foreign Properties
@@ -54,17 +48,9 @@ namespace PlacesAPI.Views.Base
 
         public string Image => Code + FLAG_EXTENSION;
 
-        public string ImageSource => FLAG_PATH + Image;
-
-        public int TerritoryCount => Territories.Count;
-
         public string StartDateLabel => GetDateLabel(StartDate);
 
         public string EndDateLabel => GetDateLabel(EndDate);
-
-
-
-
 
         #endregion Other Properties
 
@@ -82,9 +68,6 @@ namespace PlacesAPI.Views.Base
             }
         }
 
-
         #endregion Methods
-
-
     }
 }

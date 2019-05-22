@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using PlacesAPI.Code.Interfaces;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlacesAPI.Models
 {
-    public partial class Territory
+    public partial class Territory : IIdentifiable
     {
         #region Constructor
 
@@ -22,26 +23,20 @@ namespace PlacesAPI.Models
 
         public string Name { get; set; }
 
-        [Display(Name = "Full Name")]
         public string FullName { get; set; }
 
-        [Display(Name = "Native Name")]
         public string NativeName { get; set; }
 
-        [Display(Name = "Continent")]
         public int? ContinentId { get; set; }
 
-        [Display(Name = "Parent")]
         public int? ParentId { get; set; }
 
-        [Display(Name = "Flag")]
         public int? FlagId { get; set; }
 
         public int? Population { get; set; }
 
         public decimal? Area { get; set; }
 
-        [Display(Name = "ISO")]
         public string Isocode { get; set; }
 
         public double? Latitude { get; set; }
@@ -50,10 +45,8 @@ namespace PlacesAPI.Models
 
         public int? Zoom { get; set; }
 
-        [Display(Name = "Territory Type Id")]
         public int TerritoryTypeId { get; set; }
 
-        [Display(Name = "Geochart Level")]
         public string GeoChartLevel { get; set; }
 
         #endregion Database Properties
@@ -64,14 +57,12 @@ namespace PlacesAPI.Models
 
         public Territory Parent { get; set; }
 
-        [Display(Name = "Territory Type")]
         public TerritoryType TerritoryType { get; set; }
 
         public Flag Flag { get; set; }
 
         public ICollection<Territory> Children { get; set; }
 
-        [Display(Name = "Territory Places")]
         public ICollection<TerritoryPlace> TerritoryPlaces { get; set; }
 
         #endregion Foreign Properties

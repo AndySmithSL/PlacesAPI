@@ -1,4 +1,5 @@
-﻿using PlacesAPI.Code.Classes;
+﻿using Newtonsoft.Json;
+using PlacesAPI.Code.Classes;
 using PlacesAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace PlacesAPI.Views.Base
 
         #region Foreign Properties
 
+        [JsonIgnore]
         public ICollection<TerritoryView> Territories => GetViewList<TerritoryView, Territory>(ViewObject.Territories);
 
         #endregion Foreign Properties
@@ -26,8 +28,6 @@ namespace PlacesAPI.Views.Base
         #region Other Properties
 
         public override string ListName => Type;
-
-        public int TerritoryCount => Territories.Count;
 
         #endregion Other Properties
     }

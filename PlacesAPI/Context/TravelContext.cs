@@ -14,10 +14,14 @@ namespace PlacesAPI.Context
 
         public virtual DbSet<Continent> Continent { get; set; }
         public virtual DbSet<Drive> Drive { get; set; }
+        public virtual DbSet<Flag> Flag { get; set; }
+        public virtual DbSet<Place> Place { get; set; }
+        public virtual DbSet<Territory> Territory { get; set; }
+        public virtual DbSet<TerritoryType> TerritoryType { get; set; }
 
 
 
-       
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

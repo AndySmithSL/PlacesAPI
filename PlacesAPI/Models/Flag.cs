@@ -1,10 +1,11 @@
-﻿using System;
+﻿using PlacesAPI.Code.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlacesAPI.Models
 {
-    public partial class Flag
+    public partial class Flag : IIdentifiable
     {
         #region Constructor
 
@@ -30,11 +31,9 @@ namespace PlacesAPI.Models
 
         public string Description { get; set; }
 
-        [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
         public DateTime? StartDate { get; set; }
 
-        [Display(Name = "End Date")]
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 

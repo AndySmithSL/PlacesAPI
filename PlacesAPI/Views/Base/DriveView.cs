@@ -1,4 +1,5 @@
-﻿using PlacesAPI.Code.Classes;
+﻿using Newtonsoft.Json;
+using PlacesAPI.Code.Classes;
 using PlacesAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,8 @@ namespace PlacesAPI.Views.Base
     {
         #region Database Properties
 
-        [Key]
         public int Id => ViewObject.Id;
 
-        [Required]
         public string Name => ViewObject.Name;
 
         public string Description => ViewObject.Description;
@@ -24,6 +23,7 @@ namespace PlacesAPI.Views.Base
 
         #region Foreign Properties
 
+        [JsonIgnore]
         public ICollection<DriveLegView> DriveLegs => GetViewList<DriveLegView, DriveLeg>(ViewObject.DriveLegs);
 
         #endregion Foreign Properties

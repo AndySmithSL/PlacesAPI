@@ -25,17 +25,17 @@ namespace PlacesAPI.Views.Base
 
         #region Foreign Properties
 
-        [JsonIgnore]
-        public ContinentView Parent => GetView<ContinentView, Continent>(ViewObject.Parent);
+        //[JsonIgnore]
+        //public ContinentView Parent => GetView<ContinentView, Continent>(ViewObject.Parent);
 
-        [JsonIgnore]
-        public ICollection<ContinentView> Children => GetViewList<ContinentView, Continent>(ViewObject.Children);
+        //[JsonIgnore]
+        //public ICollection<ContinentView> Children => GetViewList<ContinentView, Continent>(ViewObject.Children);
 
-        [JsonIgnore]
-        public ICollection<TerritoryView> Territories => GetViewList<TerritoryView, Territory>(ViewObject.Territories);
+        //[JsonIgnore]
+        //public ICollection<TerritoryView> Territories => GetViewList<TerritoryView, Territory>(ViewObject.Territories);
 
-        [JsonIgnore]
-        public ICollection<TerritoryView> SubContinentTerritories => GetViewList<TerritoryView, Territory>(ViewObject.SubContinentTerritories);
+        //[JsonIgnore]
+        //public ICollection<TerritoryView> SubContinentTerritories => GetViewList<TerritoryView, Territory>(ViewObject.SubContinentTerritories);
 
         #endregion Foreign Properties
 

@@ -1,4 +1,5 @@
-﻿using PlacesAPI.Code.Classes;
+﻿using Newtonsoft.Json;
+using PlacesAPI.Code.Classes;
 using PlacesAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -12,19 +13,14 @@ namespace PlacesAPI.Views.Base
     {
         #region Database Properties
 
-        [Key]
         public int Id => ViewObject.Id;
 
-        [Required]
         public int Number => ViewObject.Number;
 
-        [Required]
         public int DriveId => ViewObject.DriveId;
 
-        [Required]
         public int OriginId => ViewObject.OriginId;
 
-        [Required]
         public int DestinationId => ViewObject.DestinationId;
 
         public string Description => ViewObject.Description;
@@ -33,8 +29,13 @@ namespace PlacesAPI.Views.Base
 
         #region Foreign Properties
 
+        [JsonIgnore]
         public DriveView Drive => GetView<DriveView, Drive>(ViewObject.Drive);
+
+        [JsonIgnore]
         public PlaceView Origin => GetView<PlaceView, Place>(ViewObject.Origin);
+
+        [JsonIgnore]
         public PlaceView Destination => GetView<PlaceView, Place>(ViewObject.Destination);
 
         #endregion Foreign Properties
@@ -44,11 +45,5 @@ namespace PlacesAPI.Views.Base
         public override string ListName => Number + "|" + Drive.Name + "|" + Origin.Name + "|" + Destination.Name;
 
         #endregion Other Properties
-
-        #region Methods
-
-
-
-        #endregion Methods
     }
 }

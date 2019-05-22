@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using PlacesAPI.Code.Util;
+using Newtonsoft.Json;
 
 namespace PlacesAPI.Views.Base
 {
@@ -13,21 +14,19 @@ namespace PlacesAPI.Views.Base
     {
         #region Database Properties
 
-        [Key]
         public int Id => ViewObject.Id;
 
-        [Required]
         public string Name => ViewObject.Name;
 
         public string Description => ViewObject.Description;
 
-        [StringLength(50)]
         public string Icon => ViewObject.Icon;
 
         #endregion Database Properties
 
         #region Foreign Properties
 
+        [JsonIgnore]
         public ICollection<PlaceGroupSetView> PlaceGroupSets => GetViewList<PlaceGroupSetView, PlaceGroupSet>(ViewObject.PlaceGroupSets);
 
         #endregion Foreign Properties
@@ -36,6 +35,7 @@ namespace PlacesAPI.Views.Base
 
         public override string ListName => Name;
 
+        [JsonIgnore]
         public ICollection<PlaceView> Places => PlaceGroupSets.Select(x => x.Place).Distinct(x => x.Id).ToList();
 
         #endregion Other Properties

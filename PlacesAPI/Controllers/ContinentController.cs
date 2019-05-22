@@ -37,7 +37,6 @@ namespace PlacesAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetItem(int id)
         {
-
             return await GetViewAsync<ContinentItemView>(id);
         }
 
@@ -55,11 +54,11 @@ namespace PlacesAPI.Controllers
             return id => Context
                         .Continent
                         .Include(x => x.Parent)
-                            .ThenInclude(x => x.Children)
-                                .ThenInclude(x => x.Territories)
                         .Include(x => x.Children)
                             .ThenInclude(x => x.Territories)
+                                .ThenInclude(x => x.Parent)
                         .Include(x => x.Territories)
+                            .ThenInclude(x => x.Parent)
                         .FirstOrDefault(x => x.Id == id);
         }
 
@@ -67,11 +66,9 @@ namespace PlacesAPI.Controllers
         {
             return () => Context
                         .Continent
-                        .Include(x => x.Parent)
-                        .Include(x => x.Children)
-                            .ThenInclude(x => x.Territories)
                         .Include(x => x.Territories)
-                        .AsEnumerable();
+                        .AsEnumerable()
+                        .OrderBy(x => x.Name);
         }
 
         protected override Func<Continent, bool> GetExistsFunc(int id)

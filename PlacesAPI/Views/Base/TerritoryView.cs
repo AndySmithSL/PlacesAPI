@@ -18,26 +18,20 @@ namespace PlacesAPI.Views.Base
 
         public string Name => ViewObject.Name;
 
-        [Display(Name = "Full Name")]
         public string FullName => ViewObject.FullName;
 
-        [Display(Name = "Local Name")]
         public string NativeName => ViewObject.NativeName;
 
-        [Display(Name = "Continent Id")]
         public int? ContinentId => ViewObject.ContinentId;
 
-        [Display(Name = "Parent Id")]
         public int? ParentId => ViewObject.ParentId;
 
-        [Display(Name = "Flag Id")]
         public int? FlagId => ViewObject.FlagId;
 
         public int? Population => ViewObject.Population;
 
         public decimal? Area => ViewObject.Area;
 
-        [Display(Name = "ISO")]
         public string Isocode => ViewObject.Isocode;
 
         public double? Latitude => ViewObject.Latitude;
@@ -46,28 +40,29 @@ namespace PlacesAPI.Views.Base
 
         public int? Zoom => ViewObject.Zoom;
 
-        [Display(Name = "Territory Type Id")]
         public int? TerritoryTypeId => ViewObject.TerritoryTypeId;
 
-        [Display(Name = "Geochart Level")]
         public string GeoChartLevel => ViewObject.GeoChartLevel;
 
         #endregion Database Properties
 
         #region Foreign Properties
 
-        //[JsonIgnore]
-        //public ContinentView Continent => ContinentId.HasValue ? GetView<ContinentView, Continent>(ViewObject.Continent) : Parent.Continent;
+        
 
         //[JsonIgnore]
         //public TerritoryView Parent => GetView<TerritoryView, Territory>(ViewObject.Parent);
 
+        //[JsonIgnore]
         //public TerritoryTypeView TerritoryType => GetView<TerritoryTypeView, TerritoryType>(ViewObject.TerritoryType);
 
+        //[JsonIgnore]
         //public FlagView Flag => GetView<FlagView, Flag>(ViewObject.Flag);
 
+        //[JsonIgnore]
         //public ICollection<TerritoryView> Children => GetViewList<TerritoryView, Territory>(ViewObject.Children);
 
+        //[JsonIgnore]
         //public ICollection<TerritoryPlaceView> TerritoryPlaces => GetViewList<TerritoryPlaceView, TerritoryPlace>(ViewObject.TerritoryPlaces);
 
         #endregion Foreign Properties

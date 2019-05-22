@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using PlacesAPI.Code.Util;
+using Newtonsoft.Json;
 
 namespace PlacesAPI.Views.Base
 {
@@ -13,13 +14,10 @@ namespace PlacesAPI.Views.Base
     {
         #region Database Properties
 
-        [Key]
         public int Id => ViewObject.Id;
 
-        [Required]
         public string Name => ViewObject.Name;
 
-        [Display(Name = "Local Name")]
         public string LocalName => ViewObject.LocalName;
 
         public double? Latitude => ViewObject.Latitude;
@@ -32,12 +30,16 @@ namespace PlacesAPI.Views.Base
 
         #region Foreign Properties
 
+        [JsonIgnore]
         public ICollection<TerritoryPlaceView> TerritoryPlaces => GetViewList<TerritoryPlaceView, TerritoryPlace>(ViewObject.TerritoryPlaces);
 
+        [JsonIgnore]
         public ICollection<PlaceGroupSetView> PlaceGroupSets => GetViewList<PlaceGroupSetView, PlaceGroupSet>(ViewObject.PlaceGroupSets);
 
+        [JsonIgnore]
         public ICollection<DriveLegView> OriginLegs => GetViewList<DriveLegView, DriveLeg>(ViewObject.OriginLegs);
 
+        [JsonIgnore]
         public ICollection<DriveLegView> DestinationLegs => GetViewList<DriveLegView, DriveLeg>(ViewObject.DestinationLegs);
 
         #endregion Foreign Properties
@@ -57,10 +59,13 @@ namespace PlacesAPI.Views.Base
         public string LongitudeDegrees => Longitude.HasValue ? GeoAngle.FromDouble(Longitude.Value).ToString("WE") : "--";
 
         public int ZoomValue => Zoom.HasValue ? Zoom.Value : 0;
+
         public string ZoomString => Zoom.HasValue ? Zoom.Value.ToString() : "--";
 
+        [JsonIgnore]
         public ICollection<TerritoryView> Territories => TerritoryPlaces.Select(x => x.Territory).Distinct(x => x.Id).ToList();
 
+        [JsonIgnore]
         public ICollection<PlaceGroupView> Groups => PlaceGroupSets.Select(x => x.Group).Distinct(x => x.Id).ToList();
 
         //public string FlagImage
