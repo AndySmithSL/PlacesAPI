@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using PlacesAPI.Code.Interfaces;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlacesAPI.Models
 {
-    public partial class Drive
+    public partial class Drive : IIdentifiable
     {
         #region Constructor
 
