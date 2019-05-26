@@ -16,6 +16,7 @@ namespace PlacesAPI.Context
         public virtual DbSet<Drive> Drive { get; set; }
         public virtual DbSet<Flag> Flag { get; set; }
         public virtual DbSet<Place> Place { get; set; }
+        public virtual DbSet<PlaceGroup> PlaceGroup { get; set; }
         public virtual DbSet<Territory> Territory { get; set; }
         public virtual DbSet<TerritoryType> TerritoryType { get; set; }
 
@@ -27,8 +28,8 @@ namespace PlacesAPI.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\AndyS\\source\\repos\\PlacesAPI\\PlacesAPI\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
-                optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\asmith\\source\\repos\\PlacesApi\\PlacesApi\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
+                optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\AndyS\\source\\repos\\PlacesAPI\\PlacesAPI\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
+                //optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\asmith\\source\\repos\\PlacesApi\\PlacesApi\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
             }
         }
 
