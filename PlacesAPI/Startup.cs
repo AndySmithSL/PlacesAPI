@@ -33,8 +33,9 @@ namespace PlacesAPI
                 builder => builder.WithOrigins("http://localhost:7000"));
             });
 
-            var connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\AndyS\source\repos\PlacesAPI\PlacesAPI\Database\Travel.mdf;Integrated Security=True;Connect Timeout=30";
-            //var connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asmith\source\repos\PlacesApi\PlacesApi\Database\Travel.mdf;Integrated Security=True;Connect Timeout=30";
+            //var connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\AndyS\source\repos\PlacesAPI\PlacesAPI\Database\Travel.mdf;Integrated Security=True;Connect Timeout=30";
+            var connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asmith\source\repos\PlacesApi\PlacesApi\Database\Travel.mdf;Integrated Security=True;Connect Timeout=30";
+
             services.AddDbContext<TravelContext>(options => options.UseSqlServer(connection));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options =>
