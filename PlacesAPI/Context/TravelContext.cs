@@ -103,6 +103,9 @@ namespace PlacesAPI.Context
 
                 entity.Property(e => e.Active)
                     .IsRequired();
+
+                entity.Property(e => e.Complete)
+                    .IsRequired();
             });
 
             // Place

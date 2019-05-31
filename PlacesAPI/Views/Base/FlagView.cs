@@ -33,6 +33,8 @@ namespace PlacesAPI.Views.Base
 
         public bool Active => ViewObject.Active;
 
+        public bool Complete => ViewObject.Complete;
+
         #endregion Database Properties
 
         #region Foreign Properties

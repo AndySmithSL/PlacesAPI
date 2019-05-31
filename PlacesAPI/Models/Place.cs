@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using PlacesAPI.Code.Util;
 
 namespace PlacesAPI.Models
 {
@@ -50,5 +52,12 @@ namespace PlacesAPI.Models
         public ICollection<DriveLeg> DestinationLegs { get; set; }
 
         #endregion Foreign Properties
+
+        #region Other Properties
+
+        [NotMapped]
+        public ICollection<Territory> Territories => TerritoryPlaces.Select(f => f.Territory).Distinct(f => f.Id).ToList();
+
+        #endregion Other Properties
     }
 }

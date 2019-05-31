@@ -10,6 +10,6 @@ namespace PlacesAPI.Views.ItemView
 {
     public class FlagItemView : FlagView
     {
-        //public new ICollection<TerritoryListView> Territories => GetViewList<TerritoryListView, Territory>(ViewObject.Territories);
+        public new ICollection<TerritoryListView> Territories => GetViewList<TerritoryListView, Territory>(ViewObject.Territories);
     }
 }

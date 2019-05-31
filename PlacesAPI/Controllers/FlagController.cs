@@ -53,8 +53,10 @@ namespace PlacesAPI.Controllers
         {
             return id => Context
                         .Flag
-                        //.Include(x => x.Territories)
-                        //    .ThenInclude(x => x.Continent)
+                        .Include(x => x.Territories)
+                            .ThenInclude(x => x.Continent)
+                        .Include(x => x.Territories)
+                            .ThenInclude(x => x.Parent)
                         .FirstOrDefault(x => x.Id == id);
         }
 

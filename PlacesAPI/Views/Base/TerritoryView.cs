@@ -56,20 +56,32 @@ namespace PlacesAPI.Views.Base
         //[JsonIgnore]
         //public TerritoryTypeView TerritoryType => GetView<TerritoryTypeView, TerritoryType>(ViewObject.TerritoryType);
 
-        //[JsonIgnore]
-        //public FlagView Flag => GetView<FlagView, Flag>(ViewObject.Flag);
+        [JsonIgnore]
+        public FlagView Flag => GetView<FlagView, Flag>(ViewObject.Flag);
 
         //[JsonIgnore]
         //public ICollection<TerritoryView> Children => GetViewList<TerritoryView, Territory>(ViewObject.Children);
 
-        //[JsonIgnore]
-        //public ICollection<TerritoryPlaceView> TerritoryPlaces => GetViewList<TerritoryPlaceView, TerritoryPlace>(ViewObject.TerritoryPlaces);
+        [JsonIgnore]
+        public ICollection<TerritoryPlaceView> TerritoryPlaces => GetViewList<TerritoryPlaceView, TerritoryPlace>(ViewObject.TerritoryPlaces);
 
         #endregion Foreign Properties
 
         #region Other Properties
 
         public override string ListName => Name + " : " + Isocode;
+
+        public string PopulationLabel => Population.HasValue ? Population.Value.ToString("N0") : "--";
+
+        public string AreaLabel => Area.HasValue ? Area.Value.ToString("N0") + " km²" : "--";
+
+       
+
+
+
+
+
+
 
         //public string DetailsName => string.IsNullOrEmpty(NativeName) ? FullName : NativeName + " | " + FullName;
 

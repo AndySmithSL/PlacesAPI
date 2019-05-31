@@ -53,7 +53,23 @@ namespace PlacesAPI.Controllers
         {
             return id => Context
                         .Territory
+                        .Include(x => x.Parent)
+                            .ThenInclude(x => x.Continent)
+                        .Include(x => x.Parent)
+                            .ThenInclude(x => x.Parent)
+                        .Include(x => x.Parent)
+                            .ThenInclude(x => x.Flag)
+                        .Include(x => x.Continent)
+                            .ThenInclude(x => x.Parent)
+                        .Include(x => x.TerritoryType)
+                        .Include(x => x.Flag)
                         .Include(x => x.TerritoryPlaces)
+                            .ThenInclude(x => x.Place)
+                        .Include(x => x.Children)
+                            .ThenInclude(x => x.Flag)
+                        .Include(x => x.Children)
+                            .ThenInclude(x => x.TerritoryPlaces)
+                                .ThenInclude(x => x.Place)
                         .FirstOrDefault(x => x.Id == id);
         }
 
@@ -63,7 +79,9 @@ namespace PlacesAPI.Controllers
                         .Territory
                         .Include(x => x.Continent)
                         .Include(x => x.Parent)
+                        .Include(x => x.Flag)
                         .Include(x => x.TerritoryPlaces)
+                            .ThenInclude(x => x.Place)
                         .AsEnumerable()
                         .OrderBy(x => x.Name);
         }

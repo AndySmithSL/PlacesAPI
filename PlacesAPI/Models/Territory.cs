@@ -1,6 +1,10 @@
 ﻿using PlacesAPI.Code.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+
+using PlacesAPI.Code.Util;
 
 namespace PlacesAPI.Models
 {
@@ -66,5 +70,12 @@ namespace PlacesAPI.Models
         public ICollection<TerritoryPlace> TerritoryPlaces { get; set; }
 
         #endregion Foreign Properties
+
+        #region Other Properties
+
+        [NotMapped]
+        public ICollection<Place> Places => TerritoryPlaces.Select(f => f.Place).Distinct(f => f.Id).ToList();
+
+        #endregion Other Properties
     }
 }

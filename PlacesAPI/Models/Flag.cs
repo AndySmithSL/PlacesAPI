@@ -40,6 +40,9 @@ namespace PlacesAPI.Models
         [Required]
         public bool Active { get; set; }
 
+        [Required]
+        public bool Complete { get; set; }
+
         #endregion Database Properties
 
         #region Foreign Properties

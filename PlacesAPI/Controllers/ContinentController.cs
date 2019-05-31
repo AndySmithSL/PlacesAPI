@@ -57,8 +57,13 @@ namespace PlacesAPI.Controllers
                         .Include(x => x.Children)
                             .ThenInclude(x => x.Territories)
                                 .ThenInclude(x => x.Parent)
+                        .Include(x => x.Children)
+                            .ThenInclude(x => x.Territories)
+                                .ThenInclude(x => x.Flag)
                         .Include(x => x.Territories)
                             .ThenInclude(x => x.Parent)
+                        .Include(x => x.Territories)
+                            .ThenInclude(x => x.Flag)
                         .FirstOrDefault(x => x.Id == id);
         }
 
