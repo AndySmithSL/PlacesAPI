@@ -112,6 +112,8 @@ namespace PlacesAPI.Context
             modelBuilder.Entity<Place>(entity =>
             {
                 entity.Property(e => e.Name).IsRequired();
+
+                entity.Property(e => e.Complete).IsRequired();
             });
 
             // Place Group
@@ -124,6 +126,7 @@ namespace PlacesAPI.Context
                     .HasMaxLength(50);
             });
 
+            // Place Group Set
             modelBuilder.Entity<PlaceGroupSet>(entity =>
             {
                 entity.HasOne(d => d.Place)
@@ -131,7 +134,7 @@ namespace PlacesAPI.Context
                     .HasForeignKey(d => d.PlaceId)
                     .HasConstraintName("FK_PlaceGroupSet_To_Place");
 
-                entity.HasOne(d => d.Group)
+                entity.HasOne(d => d.PlaceGroup)
                     .WithMany(p => p.PlaceGroupSets)
                     .HasForeignKey(d => d.GroupId)
                     .HasConstraintName("FK_PlaceGroupSet_To_PlaceGroup");
