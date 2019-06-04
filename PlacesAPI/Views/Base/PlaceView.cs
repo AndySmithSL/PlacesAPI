@@ -26,6 +26,8 @@ namespace PlacesAPI.Views.Base
 
         public int? Zoom => ViewObject.Zoom;
 
+        public bool Complete => ViewObject.Complete;
+
         #endregion Database Properties
 
         #region Foreign Properties
@@ -62,11 +64,11 @@ namespace PlacesAPI.Views.Base
 
         public string ZoomString => Zoom.HasValue ? Zoom.Value.ToString() : "--";
 
-        [JsonIgnore]
-        public ICollection<TerritoryView> Territories => TerritoryPlaces.Select(x => x.Territory).Distinct(x => x.Id).ToList();
+        //[JsonIgnore]
+        //public ICollection<TerritoryView> Territories => TerritoryPlaces.Select(x => x.Territory).Distinct(x => x.Id).ToList();
 
-        [JsonIgnore]
-        public ICollection<PlaceGroupView> Groups => PlaceGroupSets.Select(x => x.Group).Distinct(x => x.Id).ToList();
+        //[JsonIgnore]
+        //public ICollection<PlaceGroupView> Groups => PlaceGroupSets.Select(x => x.Group).Distinct(x => x.Id).ToList();
 
         //public string FlagImage
         //{

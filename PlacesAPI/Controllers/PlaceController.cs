@@ -60,6 +60,13 @@ namespace PlacesAPI.Controllers
         {
             return () => Context
                         .Place
+                        .Include(x => x.TerritoryPlaces)
+                            .ThenInclude(x => x.Territory)
+                                .ThenInclude(x => x.Flag)
+                        .Include(x => x.PlaceGroupSets)
+                            .ThenInclude(x => x.PlaceGroup)
+                        .Include(x => x.PlaceGroupSets)
+                            .ThenInclude(x => x.Place)
                         .AsEnumerable()
                         .OrderBy(x => x.Name);
         }

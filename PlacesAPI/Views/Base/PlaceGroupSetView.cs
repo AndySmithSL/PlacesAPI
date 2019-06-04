@@ -21,8 +21,8 @@ namespace PlacesAPI.Views.Base
         public PlaceView Place => GetView<PlaceView, Place>(ViewObject.Place);
 
         [JsonIgnore]
-        public PlaceGroupView Group => GetView<PlaceGroupView, PlaceGroup>(ViewObject.Group);
+        public PlaceGroupView PlaceGroup => GetView<PlaceGroupView, PlaceGroup>(ViewObject.PlaceGroup);
 
-        public override string ListName => Place.Name + " : " + Group.Name;
+        public override string ListName => Place.Name + " : " + PlaceGroup.Name;
     }
 }

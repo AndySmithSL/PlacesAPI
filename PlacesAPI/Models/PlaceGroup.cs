@@ -32,7 +32,6 @@ namespace PlacesAPI.Models
 
         #region Foreign Properties
 
-        [Display(Name = "Place Group Sets")]
         public ICollection<PlaceGroupSet> PlaceGroupSets { get; set; }
 
         #endregion Foreign Properties

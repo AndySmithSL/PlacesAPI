@@ -39,6 +39,9 @@ namespace PlacesAPI.Models
 
         public int? Zoom { get; set; }
 
+        [Required]
+        public bool Complete { get; set; }
+
         #endregion Database Properties
 
         #region Foreign Properties
@@ -57,6 +60,18 @@ namespace PlacesAPI.Models
 
         [NotMapped]
         public ICollection<Territory> Territories => TerritoryPlaces.Select(f => f.Territory).Distinct(f => f.Id).ToList();
+
+        [NotMapped]
+        public ICollection<PlaceGroup> PlaceGroups => PlaceGroupSets.Select(f => f.PlaceGroup).Distinct(f => f.Id).ToList();
+
+        [NotMapped]
+        public ICollection<Drive> OriginDrives => OriginLegs.Select(f => f.Drive).Distinct(f => f.Id).ToList();
+
+        [NotMapped]
+        public ICollection<Drive> DestinationDrives => DestinationLegs.Select(f => f.Drive).Distinct(f => f.Id).ToList();
+
+        [NotMapped]
+        public ICollection<Drive> Drives => OriginDrives.Union(DestinationDrives).Distinct(f => f.Id).ToList();
 
         #endregion Other Properties
     }
