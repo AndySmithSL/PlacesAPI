@@ -8,13 +8,12 @@ namespace PlacesAPI.Views.ListView
 {
     public class PlaceListView : PlaceView
     {
-        public int Territories => ViewObject.Territories.Count;
+        //public new int Territories => base.Territories.Count;
 
-        public int PlaceGroups => ViewObject.PlaceGroups.Count;
+        //public new int Groups => base.Groups.Count;
 
-        public int Drives => ViewObject.Drives.Count;
+        //public int Drives => ViewObject.Drives.Count;
 
-        public IEnumerable<string> Flags => ViewObject.Territories.Select(x => x.Flag != null ? x.Flag.Code : "BLANK.png");
-
+        public IEnumerable<string> Flags => base.Territories.Select(x => x.Flag != null ? x.Flag.Image : "BLANK.png");
     }
 }

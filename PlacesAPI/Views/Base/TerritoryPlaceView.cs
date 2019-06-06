@@ -28,7 +28,7 @@ namespace PlacesAPI.Views.Base
 
         #region Other Properties
 
-        public override string ListName => Place.Name + " : " + Territory.Name;
+        //public override string ListName => Place.Name + " : " + Territory.Name;
 
         #endregion Other Properties
     }

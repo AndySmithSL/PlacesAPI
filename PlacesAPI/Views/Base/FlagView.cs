@@ -46,7 +46,7 @@ namespace PlacesAPI.Views.Base
 
         #region Other Properties
 
-        public override string ListName => Name + " : " + Code;
+        //public override string ListName => Name + " : " + Code;
 
         public string Image => Code + FLAG_EXTENSION;
 

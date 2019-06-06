@@ -41,7 +41,7 @@ namespace PlacesAPI.Views.Base
 
         #region Other Properties
 
-        public override string ListName => Name + ":" + Code;
+        //public override string ListName => Name + ":" + Code;
 
         #endregion Other Properties
     }

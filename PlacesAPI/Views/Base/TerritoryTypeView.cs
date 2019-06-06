@@ -27,7 +27,7 @@ namespace PlacesAPI.Views.Base
 
         #region Other Properties
 
-        public override string ListName => Type;
+        //public override string ListName => Type;
 
         #endregion Other Properties
     }

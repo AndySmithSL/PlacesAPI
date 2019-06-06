@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PlacesAPI.Code.Classes
 {
-    public abstract class View<T> : IView<T>, IListName
+    public abstract class View<T> : IView<T>
     {
         public View() { }
 
@@ -16,7 +16,7 @@ namespace PlacesAPI.Code.Classes
         [JsonIgnore]
         public T ViewObject { get; set; }
 
-        public abstract string ListName { get; }
+        //public abstract string ListName { get; }
 
         protected ICollection<TView> GetViewList<TView, TObject>(IEnumerable<TObject> list)
             where TView : IView<TObject>, new()

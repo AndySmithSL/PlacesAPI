@@ -33,7 +33,7 @@ namespace PlacesAPI.Views.Base
 
         #region Other Properties
 
-        public override string ListName => Name;
+        //public override string ListName => Name;
 
         [JsonIgnore]
         public ICollection<PlaceView> Places => PlaceGroupSets.Select(x => x.Place).Distinct(x => x.Id).ToList();

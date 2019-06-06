@@ -69,7 +69,7 @@ namespace PlacesAPI.Views.Base
 
         #region Other Properties
 
-        public override string ListName => Name + " : " + Isocode;
+        //public override string ListName => Name + " : " + Isocode;
 
         public string PopulationLabel => Population.HasValue ? Population.Value.ToString("N0") : "--";
 

@@ -42,7 +42,7 @@ namespace PlacesAPI.Views.Base
 
         #region Other Properties
 
-        public override string ListName => Number + "|" + Drive.Name + "|" + Origin.Name + "|" + Destination.Name;
+        //public override string ListName => Number + "|" + Drive.Name + "|" + Origin.Name + "|" + Destination.Name;
 
         #endregion Other Properties
     }

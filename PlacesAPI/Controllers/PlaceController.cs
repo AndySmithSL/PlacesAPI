@@ -53,6 +53,21 @@ namespace PlacesAPI.Controllers
         {
             return id => Context
                         .Place
+                        .Include(x => x.TerritoryPlaces)
+                            .ThenInclude(x => x.Territory)
+                                .ThenInclude(x => x.Flag)
+                        .Include(x => x.TerritoryPlaces)
+                            .ThenInclude(x => x.Territory)
+                                .ThenInclude(x => x.Continent)
+                        .Include(x => x.TerritoryPlaces)
+                            .ThenInclude(x => x.Territory)
+                                .ThenInclude(x => x.Parent)
+                        .Include(x => x.PlaceGroupSets)
+                            .ThenInclude(x => x.PlaceGroup)
+                        .Include(x => x.DestinationLegs)
+                            .ThenInclude(x => x.Drive)
+                        .Include(x => x.OriginLegs)
+                            .ThenInclude(x => x.Drive)
                         .FirstOrDefault(x => x.Id == id);
         }
 
