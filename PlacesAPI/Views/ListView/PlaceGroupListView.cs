@@ -8,6 +8,6 @@ namespace PlacesAPI.Views.ListView
 {
     public class PlaceGroupListView : PlaceGroupView
     {
-
+        public int Places => ViewObject.Places.Count;
     }
 }

@@ -20,10 +20,6 @@ namespace PlacesAPI.Context
         public virtual DbSet<Territory> Territory { get; set; }
         public virtual DbSet<TerritoryType> TerritoryType { get; set; }
 
-
-
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -123,6 +119,9 @@ namespace PlacesAPI.Context
                     .IsRequired();
 
                 entity.Property(e => e.Icon)
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Image)
                     .HasMaxLength(50);
             });
 

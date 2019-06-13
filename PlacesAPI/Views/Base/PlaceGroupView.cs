@@ -22,6 +22,8 @@ namespace PlacesAPI.Views.Base
 
         public string Icon => ViewObject.Icon;
 
+        public string Image => ViewObject.Image;
+
         #endregion Database Properties
 
         #region Foreign Properties
@@ -35,8 +37,8 @@ namespace PlacesAPI.Views.Base
 
         //public override string ListName => Name;
 
-        [JsonIgnore]
-        public ICollection<PlaceView> Places => PlaceGroupSets.Select(x => x.Place).Distinct(x => x.Id).ToList();
+        //[JsonIgnore]
+        //public ICollection<PlaceView> Places => PlaceGroupSets.Select(x => x.Place).Distinct(x => x.Id).ToList();
 
         #endregion Other Properties
     }

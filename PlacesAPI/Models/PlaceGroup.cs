@@ -1,6 +1,9 @@
 ﻿using PlacesAPI.Code.Interfaces;
+using PlacesAPI.Code.Util;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace PlacesAPI.Models
 {
@@ -28,6 +31,8 @@ namespace PlacesAPI.Models
         [StringLength(50)]
         public string Icon { get; set; }
 
+        public string Image { get; set; }
+
         #endregion Database Properties
 
         #region Foreign Properties
@@ -35,5 +40,12 @@ namespace PlacesAPI.Models
         public ICollection<PlaceGroupSet> PlaceGroupSets { get; set; }
 
         #endregion Foreign Properties
+
+        #region Other Properties
+
+        [NotMapped]
+        public ICollection<Place> Places => PlaceGroupSets.Select(f => f.Place).Distinct(f => f.Id).ToList();
+
+        #endregion Other Properties
     }
 }

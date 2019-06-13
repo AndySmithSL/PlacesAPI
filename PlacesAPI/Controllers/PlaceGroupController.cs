@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PlacesAPI.Code.Classes;
 using PlacesAPI.Context;
 using PlacesAPI.Data;
@@ -52,6 +53,11 @@ namespace PlacesAPI.Controllers
         {
             return id => Context
                         .PlaceGroup
+                        .Include(x => x.PlaceGroupSets)
+                            .ThenInclude(x => x.Place)
+                                .ThenInclude(x => x.TerritoryPlaces)
+                                    .ThenInclude(x => x.Territory)
+                                        .ThenInclude(x => x.Flag)
                         .FirstOrDefault(x => x.Id == id);
         }
 
@@ -59,6 +65,8 @@ namespace PlacesAPI.Controllers
         {
             return () => Context
                         .PlaceGroup
+                        .Include(x => x.PlaceGroupSets)
+                            .ThenInclude(x => x.Place)
                         .AsEnumerable()
                         .OrderBy(x => x.Name);
         }
