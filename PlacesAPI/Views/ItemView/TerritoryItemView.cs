@@ -10,7 +10,7 @@ namespace PlacesAPI.Views.ItemView
 {
     public class TerritoryItemView : TerritoryView
     {
-        public TerritoryListView Parent => GetView<TerritoryListView, Territory>(ViewObject.Parent);
+        public new TerritoryListView Parent => GetView<TerritoryListView, Territory>(ViewObject.Parent);
 
         public ContinentListView Continent => GetView<ContinentListView, Continent>(ViewObject.Continent);
 
@@ -24,26 +24,5 @@ namespace PlacesAPI.Views.ItemView
 
         public ICollection<TerritoryListView> Children => GetViewList<TerritoryListView, Territory>(ViewObject.Children.OrderBy(x => x.Name));
 
-        public string CountryIso
-        {
-            get
-            {
-                if (ParentId.HasValue && !String.IsNullOrEmpty(GeoChartLevel))
-                {
-                    if ((Code.Enums.GeoChartLevel)Enum.Parse(typeof(Code.Enums.GeoChartLevel), GeoChartLevel) == Code.Enums.GeoChartLevel.countries)
-                    {
-                        return Isocode;
-                    }
-                    else
-                    {
-                        return Parent.Isocode;
-                    }
-                }
-                else
-                {
-                    return Isocode;
-                }
-            }
-        }
     }
 }

@@ -50,8 +50,8 @@ namespace PlacesAPI.Views.Base
 
         
 
-        //[JsonIgnore]
-        //public TerritoryView Parent => GetView<TerritoryView, Territory>(ViewObject.Parent);
+        [JsonIgnore]
+        public TerritoryView Parent => GetView<TerritoryView, Territory>(ViewObject.Parent);
 
         //[JsonIgnore]
         //public TerritoryTypeView TerritoryType => GetView<TerritoryTypeView, TerritoryType>(ViewObject.TerritoryType);
@@ -69,14 +69,31 @@ namespace PlacesAPI.Views.Base
 
         #region Other Properties
 
-        //public override string ListName => Name + " : " + Isocode;
-
         public string PopulationLabel => Population.HasValue ? Population.Value.ToString("N0") : "--";
 
         public string AreaLabel => Area.HasValue ? Area.Value.ToString("N0") + " km²" : "--";
 
-       
-
+        public string CountryIso
+        {
+            get
+            {
+                if (ParentId.HasValue && !String.IsNullOrEmpty(GeoChartLevel))
+                {
+                    if ((Code.Enums.GeoChartLevel)Enum.Parse(typeof(Code.Enums.GeoChartLevel), GeoChartLevel) == Code.Enums.GeoChartLevel.countries)
+                    {
+                        return Isocode;
+                    }
+                    else
+                    {
+                        return Parent.Isocode;
+                    }
+                }
+                else
+                {
+                    return Isocode;
+                }
+            }
+        }
 
 
 
