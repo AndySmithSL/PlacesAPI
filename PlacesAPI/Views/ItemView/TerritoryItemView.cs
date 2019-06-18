@@ -12,13 +12,11 @@ namespace PlacesAPI.Views.ItemView
     {
         public new TerritoryListView Parent => GetView<TerritoryListView, Territory>(ViewObject.Parent);
 
-        public ContinentListView Continent => GetView<ContinentListView, Continent>(ViewObject.Continent);
+        public new ContinentListView Continent => GetView<ContinentListView, Continent>(ViewObject.Continent);
 
         public TerritoryTypeListView TerritoryType => GetView<TerritoryTypeListView, TerritoryType>(ViewObject.TerritoryType);
 
         public new FlagListView Flag => GetView<FlagListView, Flag>(ViewObject.Flag);
-
-        public string PartOf => ParentId.HasValue ? Parent.Name : Continent.Name;
 
         public ICollection<PlaceListView> Places => GetViewList<PlaceListView, Place>(ViewObject.Places.OrderBy(x => x.Name));
 

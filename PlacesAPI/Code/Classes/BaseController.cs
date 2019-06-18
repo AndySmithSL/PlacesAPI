@@ -87,6 +87,12 @@ namespace PlacesAPI.Code.Classes
             return await DataAccess.GetViewsAsync<TView>(GetItemsFunction());
         }
 
+        public async Task<IEnumerable<TView>> GetViewsAsync<TView>(Func<IEnumerable<T>> function)
+            where TView : IView<T>, new()
+        {
+            return await DataAccess.GetViewsAsync<TView>(function);
+        }
+
         #endregion Get Views
 
         #region Post

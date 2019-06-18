@@ -40,6 +40,12 @@ namespace PlacesAPI.Controllers
             return await GetViewAsync<FlagItemView>(id);
         }
 
+        [HttpGet("date/{date}")]
+        public async Task<IEnumerable<FlagListView>> GetItems(DateTime date)
+        {
+            return await GetViewsAsync<FlagListView>(GetItemsFunction(date));
+        }
+
         #endregion API
 
         #region Override Abstract Methods
@@ -73,6 +79,17 @@ namespace PlacesAPI.Controllers
         protected override Func<Flag, bool> GetExistsFunc(int id)
         {
             return x => x.Id == id;
+        }
+
+        protected Func<IEnumerable<Flag>> GetItemsFunction(DateTime date)
+        {
+            return () => Context
+                        .Flag
+                        .Include(x => x.Territories)
+                            .ThenInclude(x => x.Continent)
+                        .Include(x => x.Territories)
+                            .ThenInclude(x => x.Parent)
+                        .Where(x => x.StartDate.Value.Month == date.Month && x.StartDate.Value.Day == date.Day);
         }
 
         #endregion Override Abstract Methods

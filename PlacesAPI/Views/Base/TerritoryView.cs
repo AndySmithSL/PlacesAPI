@@ -48,10 +48,11 @@ namespace PlacesAPI.Views.Base
 
         #region Foreign Properties
 
-        
-
         [JsonIgnore]
         public TerritoryView Parent => GetView<TerritoryView, Territory>(ViewObject.Parent);
+
+        [JsonIgnore]
+        public ContinentView Continent => GetView<ContinentView, Continent>(ViewObject.Continent);
 
         //[JsonIgnore]
         //public TerritoryTypeView TerritoryType => GetView<TerritoryTypeView, TerritoryType>(ViewObject.TerritoryType);
@@ -72,6 +73,8 @@ namespace PlacesAPI.Views.Base
         public string PopulationLabel => Population.HasValue ? Population.Value.ToString("N0") : "--";
 
         public string AreaLabel => Area.HasValue ? Area.Value.ToString("N0") + " km²" : "--";
+
+        public string PartOf => ParentId.HasValue ? Parent.Name : Continent.Name;
 
         public string CountryIso
         {
