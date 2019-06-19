@@ -8,5 +8,6 @@ namespace PlacesAPI.Views.ListView
 {
     public class DriveListView : DriveView
     {
+        public int Legs => ViewObject.DriveLegs.Count();
     }
 }

@@ -37,7 +37,6 @@ namespace PlacesAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetItem(int id)
         {
-
             return await GetViewAsync<TerritoryTypeItemView>(id);
         }
 

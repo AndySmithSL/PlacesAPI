@@ -49,23 +49,24 @@ namespace PlacesAPI.Controllers
             return new DataAccess<Drive>(Context, Context.Drive);
         }
 
-        protected override Func<int, Drive> GetItemFunction()
-        {
-            return id => Context
-                        .Drive
-                        //.Include(x => x.Territories)
-                        //    .ThenInclude(x => x.Continent)
-                        .FirstOrDefault(x => x.Id == id);
-        }
-
         protected override Func<IEnumerable<Drive>> GetItemsFunction()
         {
             return () => Context
                         .Drive
-                        //.Include(x => x.Territories)
-                        //   .ThenInclude(x => x.Continent)
+                        .Include(x => x.DriveLegs)
                         .AsEnumerable()
                         .OrderBy(x => x.Name);
+        }
+
+        protected override Func<int, Drive> GetItemFunction()
+        {
+            return id => Context
+                        .Drive
+                        .Include(x => x.DriveLegs)
+                            .ThenInclude(x => x.Origin)
+                        .Include(x => x.DriveLegs)
+                            .ThenInclude(x => x.Destination)
+                        .FirstOrDefault(x => x.Id == id);
         }
 
         protected override Func<Drive, bool> GetExistsFunc(int id)

@@ -14,15 +14,10 @@ namespace PlacesAPI.Views.Base
         #region Database Properties
 
         public int Id => ViewObject.Id;
-
         public int Number => ViewObject.Number;
-
         public int DriveId => ViewObject.DriveId;
-
         public int OriginId => ViewObject.OriginId;
-
         public int DestinationId => ViewObject.DestinationId;
-
         public string Description => ViewObject.Description;
 
         #endregion Database Properties
@@ -42,7 +37,8 @@ namespace PlacesAPI.Views.Base
 
         #region Other Properties
 
-        //public override string ListName => Number + "|" + Drive.Name + "|" + Origin.Name + "|" + Destination.Name;
+ 
+
 
         #endregion Other Properties
     }
