@@ -1,6 +1,8 @@
 ﻿using PlacesAPI.Code.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace PlacesAPI.Models
 {
@@ -33,5 +35,40 @@ namespace PlacesAPI.Models
         public ICollection<DriveLeg> DriveLegs { get; set; }
 
         #endregion Foreign Properties
+
+        #region Other Properties
+
+        [NotMapped]
+        public Place Origin => DriveLegs.OrderBy(x => x.Number).ToList().FirstOrDefault().Origin;
+
+        [NotMapped]
+        public Place Destination => DriveLegs.OrderByDescending(x => x.Number).ToList().FirstOrDefault().Destination;
+
+        [NotMapped]
+        public List<Place> Waypoints => GetWaypoints();
+        
+        #endregion Other Properties
+
+        #region Methods
+
+        private List<Place> GetWaypoints()
+        {
+            List<Place> results = new List<Place>();
+
+            bool isFirst = true;
+
+            foreach (var item in DriveLegs)
+            {
+                if (!isFirst)
+                {
+                    results.Add(item.Origin);
+                }
+                isFirst = false;
+            }
+
+            return results;
+        }
+
+        #endregion Methods
     }
 }

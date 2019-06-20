@@ -30,6 +30,11 @@ namespace PlacesAPI.Views.Base
 
         #region Other Properties
 
+        //[JsonIgnore]
+        //public PlaceView Origin => DriveLegs.OrderBy(x => x.Number).ToList().FirstOrDefault()?.Origin;
+
+        //[JsonIgnore]
+        //public PlaceView Destination => DriveLegs.OrderBy(x => x.Number).ToList().FirstOrDefault()?.Destination;
 
         #endregion Other Properties
     }

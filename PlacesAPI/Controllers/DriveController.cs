@@ -54,6 +54,9 @@ namespace PlacesAPI.Controllers
             return () => Context
                         .Drive
                         .Include(x => x.DriveLegs)
+                            .ThenInclude(x => x.Origin)
+                        .Include(x => x.DriveLegs)
+                            .ThenInclude(x => x.Destination)
                         .AsEnumerable()
                         .OrderBy(x => x.Name);
         }
