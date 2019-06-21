@@ -10,7 +10,7 @@ namespace PlacesAPI.Views.ItemView
 {
     public class DriveItemView : DriveView
     {
-        public new ICollection<DriveLegListView> DriveLegs => GetViewList<DriveLegListView, DriveLeg>(ViewObject.DriveLegs);
+        public new ICollection<DriveLegListView> DriveLegs => GetViewList<DriveLegListView, DriveLeg>(ViewObject.DriveLegs.OrderBy(x => x.Number));
 
         public PlaceListView Origin => GetView<PlaceListView, Place>(ViewObject.Origin);
 
