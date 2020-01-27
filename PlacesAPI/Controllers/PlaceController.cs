@@ -75,6 +75,7 @@ namespace PlacesAPI.Controllers
         {
             return () => Context
                         .Place
+                        .Where(x => x.Complete == true)
                         .Include(x => x.TerritoryPlaces)
                             .ThenInclude(x => x.Territory)
                                 .ThenInclude(x => x.Flag)

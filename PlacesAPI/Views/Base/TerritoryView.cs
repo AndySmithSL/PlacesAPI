@@ -44,6 +44,8 @@ namespace PlacesAPI.Views.Base
 
         public string GeoChartLevel => ViewObject.GeoChartLevel;
 
+        public bool Complete => ViewObject.Complete;
+
         #endregion Database Properties
 
         #region Foreign Properties

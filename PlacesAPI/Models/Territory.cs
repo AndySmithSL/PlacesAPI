@@ -53,6 +53,9 @@ namespace PlacesAPI.Models
 
         public string GeoChartLevel { get; set; }
 
+        [Required]
+        public bool Complete { get; set; }
+
         #endregion Database Properties
 
         #region Foreign Properties
