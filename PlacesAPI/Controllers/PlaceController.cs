@@ -64,10 +64,14 @@ namespace PlacesAPI.Controllers
                                 .ThenInclude(x => x.Parent)
                         .Include(x => x.PlaceGroupSets)
                             .ThenInclude(x => x.PlaceGroup)
-                        .Include(x => x.DestinationLegs)
+                        .Include(x => x.DriveDestinationLegs)
                             .ThenInclude(x => x.Drive)
-                        .Include(x => x.OriginLegs)
+                        .Include(x => x.DriveOriginLegs)
                             .ThenInclude(x => x.Drive)
+                        .Include(x => x.RouteDestinationLegs)
+                            .ThenInclude(x => x.Route)
+                        .Include(x => x.RouteOriginLegs)
+                            .ThenInclude(x => x.Route)
                         .FirstOrDefault(x => x.Id == id);
         }
 

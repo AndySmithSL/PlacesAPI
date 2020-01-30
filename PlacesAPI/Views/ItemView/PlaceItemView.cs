@@ -31,8 +31,15 @@ namespace PlacesAPI.Views.ItemView
 
         public ICollection<DriveListView> Drives => GetViewList<DriveListView, Drive>(ViewObject.Drives);
 
-        public ICollection<DriveLegView> OriginLegs => GetViewList<DriveLegView, DriveLeg>(ViewObject.OriginLegs);
+        public ICollection<DriveLegView> DriveOriginLegs => GetViewList<DriveLegView, DriveLeg>(ViewObject.DriveOriginLegs);
 
+        public ICollection<DriveLegView> DriveDestinationLegs => GetViewList<DriveLegView, DriveLeg>(ViewObject.DriveDestinationLegs);
+
+        public ICollection<RouteListView> Routes => GetViewList<RouteListView, Route>(ViewObject.Routes);
+
+        public ICollection<RouteLegView> RouteOriginLegs => GetViewList<RouteLegView, RouteLeg>(ViewObject.RouteOriginLegs);
+
+        public ICollection<RouteLegView> RouteDestinationLegs => GetViewList<RouteLegView, RouteLeg>(ViewObject.RouteDestinationLegs);
 
     }
 }

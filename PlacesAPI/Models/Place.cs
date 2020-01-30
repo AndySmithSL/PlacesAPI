@@ -17,8 +17,10 @@ namespace PlacesAPI.Models
         {
             TerritoryPlaces = new HashSet<TerritoryPlace>();
             PlaceGroupSets = new HashSet<PlaceGroupSet>();
-            OriginLegs = new HashSet<DriveLeg>();
-            DestinationLegs = new HashSet<DriveLeg>();
+            DriveOriginLegs = new HashSet<DriveLeg>();
+            DriveDestinationLegs = new HashSet<DriveLeg>();
+            RouteOriginLegs = new HashSet<RouteLeg>();
+            RouteDestinationLegs = new HashSet<RouteLeg>();
         }
 
         #endregion Constructor
@@ -50,9 +52,13 @@ namespace PlacesAPI.Models
 
         public ICollection<PlaceGroupSet> PlaceGroupSets { get; set; }
 
-        public ICollection<DriveLeg> OriginLegs { get; set; }
+        public ICollection<DriveLeg> DriveOriginLegs { get; set; }
 
-        public ICollection<DriveLeg> DestinationLegs { get; set; }
+        public ICollection<DriveLeg> DriveDestinationLegs { get; set; }
+
+        public ICollection<RouteLeg> RouteOriginLegs { get; set; }
+
+        public ICollection<RouteLeg> RouteDestinationLegs { get; set; }
 
         #endregion Foreign Properties
 
@@ -65,13 +71,22 @@ namespace PlacesAPI.Models
         public ICollection<PlaceGroup> PlaceGroups => PlaceGroupSets.Select(f => f.PlaceGroup).Distinct(f => f.Id).ToList();
 
         [NotMapped]
-        public ICollection<Drive> OriginDrives => OriginLegs.Select(f => f.Drive).Distinct(f => f.Id).ToList();
+        public ICollection<Drive> OriginDrives => DriveOriginLegs.Select(f => f.Drive).Distinct(f => f.Id).ToList();
 
         [NotMapped]
-        public ICollection<Drive> DestinationDrives => DestinationLegs.Select(f => f.Drive).Distinct(f => f.Id).ToList();
+        public ICollection<Drive> DestinationDrives => DriveDestinationLegs.Select(f => f.Drive).Distinct(f => f.Id).ToList();
 
         [NotMapped]
         public ICollection<Drive> Drives => OriginDrives.Union(DestinationDrives).Distinct(f => f.Id).ToList();
+
+        [NotMapped]
+        public ICollection<Route> OriginRoutes => RouteOriginLegs.Select(f => f.Route).Distinct(f => f.Id).ToList();
+
+        [NotMapped]
+        public ICollection<Route> DestinationRoutes => RouteDestinationLegs.Select(f => f.Route).Distinct(f => f.Id).ToList();
+
+        [NotMapped]
+        public ICollection<Route> Routes => OriginRoutes.Union(DestinationRoutes).Distinct(f => f.Id).ToList();
 
         #endregion Other Properties
     }

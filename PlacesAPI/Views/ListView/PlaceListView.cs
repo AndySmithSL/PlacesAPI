@@ -1,9 +1,7 @@
 ﻿using PlacesAPI.Code.Classes;
 using PlacesAPI.Views.Base;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PlacesAPI.Views.ListView
 {
@@ -18,9 +16,19 @@ namespace PlacesAPI.Views.ListView
         public string LongitudeDegrees => Longitude.HasValue ? GeoAngle.FromDouble(Longitude.Value).ToString("WE") : "--";
 
 
+        public int Groups => ViewObject.PlaceGroups.Count;
 
+        public int Drives => ViewObject.Drives.Count;
 
+        public int DriveOriginLegs => ViewObject.DriveOriginLegs.Count;
 
+        public int DriveDestinationLegs => ViewObject.DriveDestinationLegs.Count;
+
+        public int Routes => ViewObject.Routes.Count;
+
+        public int RouteOriginLegs => ViewObject.RouteOriginLegs.Count;
+
+        public int RouteDestinationLegs => ViewObject.RouteDestinationLegs.Count;
 
     }
 }

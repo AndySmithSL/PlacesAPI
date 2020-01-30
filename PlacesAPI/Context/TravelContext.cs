@@ -14,9 +14,12 @@ namespace PlacesAPI.Context
 
         public virtual DbSet<Continent> Continent { get; set; }
         public virtual DbSet<Drive> Drive { get; set; }
+        public virtual DbSet<DriveLeg> DriveLeg { get; set; }
         public virtual DbSet<Flag> Flag { get; set; }
         public virtual DbSet<Place> Place { get; set; }
         public virtual DbSet<PlaceGroup> PlaceGroup { get; set; }
+        public virtual DbSet<Route> Route { get; set; }
+        public virtual DbSet<RouteLeg> RouteLeg { get; set; }
         public virtual DbSet<Territory> Territory { get; set; }
         public virtual DbSet<TerritoryType> TerritoryType { get; set; }
 
@@ -75,12 +78,12 @@ namespace PlacesAPI.Context
                     .HasConstraintName("FK_DriveLeg_To_Drive");
 
                 entity.HasOne(d => d.Origin)
-                    .WithMany(p => p.OriginLegs)
+                    .WithMany(p => p.DriveOriginLegs)
                     .HasForeignKey(d => d.OriginId)
                     .HasConstraintName("FK_DriveLeg_To_Place_Origin");
 
                 entity.HasOne(d => d.Destination)
-                    .WithMany(p => p.DestinationLegs)
+                    .WithMany(p => p.DriveDestinationLegs)
                     .HasForeignKey(d => d.DestinationId)
                     .HasConstraintName("FK_DriveLeg_To_Place_Destination");
             });
@@ -139,6 +142,44 @@ namespace PlacesAPI.Context
                     .HasConstraintName("FK_PlaceGroupSet_To_PlaceGroup");
             });
 
+            // Route 
+            modelBuilder.Entity<Route>(entity =>
+            {
+                entity.Property(e => e.Name).IsRequired();
+            });
+
+            // Route Leg
+            modelBuilder.Entity<RouteLeg>(entity =>
+            {
+                entity.Property(e => e.Number)
+                    .IsRequired();
+
+                entity.Property(e => e.RouteId)
+                    .IsRequired();
+
+                entity.Property(e => e.OriginId)
+                    .IsRequired();
+
+                entity.Property(e => e.DestinationId)
+                    .IsRequired();
+
+                entity.HasOne(d => d.Route)
+                    .WithMany(p => p.RouteLegs)
+                    .HasForeignKey(d => d.RouteId)
+                    .HasConstraintName("FK_RouteLeg_ToRoute");
+
+                entity.HasOne(d => d.Origin)
+                    .WithMany(p => p.RouteOriginLegs)
+                    .HasForeignKey(d => d.OriginId)
+                    .HasConstraintName("FK_RouteLeg_ToOrigin");
+
+                entity.HasOne(d => d.Destination)
+                    .WithMany(p => p.RouteDestinationLegs)
+                    .HasForeignKey(d => d.DestinationId)
+                    .HasConstraintName("FK_RouteLeg_ToDestination");
+            });
+
+            // Territory
             modelBuilder.Entity<Territory>(entity =>
             {
                 entity.Property(e => e.Isocode)
@@ -166,6 +207,7 @@ namespace PlacesAPI.Context
                     .HasConstraintName("FK_Territory_TerritoryType");
             });
 
+            // Territory Place
             modelBuilder.Entity<TerritoryPlace>(entity =>
             {
                 entity.HasOne(d => d.Territory)
@@ -179,6 +221,7 @@ namespace PlacesAPI.Context
                     .HasConstraintName("FK_TerritoryPlace_Place");
             });
 
+            // Territory Type
             modelBuilder.Entity<TerritoryType>(entity =>
             {
                 entity.Property(e => e.Type).IsRequired();
