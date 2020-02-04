@@ -15,5 +15,8 @@ namespace PlacesAPI.Views.ItemView
         public PlaceListView Destination => GetView<PlaceListView, Place>(ViewObject.Destination);
 
         public ICollection<PlaceListView> Waypoints => GetViewList<PlaceListView, Place>(ViewObject.Waypoints);
+
+        public ICollection<PlaceListView> Places => GetViewList<PlaceListView, Place>(ViewObject.Places);
+
     }
 }

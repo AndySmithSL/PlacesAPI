@@ -1,4 +1,5 @@
 ﻿using PlacesAPI.Code.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -47,6 +48,9 @@ namespace PlacesAPI.Models
         [NotMapped]
         public List<Place> Waypoints => GetWaypoints();
 
+        [NotMapped]
+        public List<Place> Places => GetPlaces();
+
         #endregion Other Properties
 
         #region Methods
@@ -64,6 +68,25 @@ namespace PlacesAPI.Models
                     results.Add(item.Origin);
                 }
                 isFirst = false;
+            }
+
+            return results;
+        }
+
+        private List<Place> GetPlaces()
+        {
+            List<Place> results = new List<Place>();
+
+            foreach (var leg in RouteLegs)
+            {
+                if (!results.Contains(leg.Origin))
+                {
+                    results.Add(leg.Origin);
+                }
+                if (!results.Contains(leg.Destination))
+                {
+                    results.Add(leg.Destination);
+                }
             }
 
             return results;
