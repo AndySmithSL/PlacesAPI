@@ -6,12 +6,12 @@ namespace PlacesAPI.Views.ListView
     {
         public string Route => ViewObject.Route.Name;
         
-        public string Destination => ViewObject.Destination.Name;
-
-        //TODO:AS
         public string Origin => ViewObject.Origin.Name;
         public double? OriginLat => ViewObject.Origin.Latitude;
         public double? OriginLng => ViewObject.Origin.Longitude;
 
+        public string Destination => ViewObject.Destination.Name;
+        public double? DestinationLat => ViewObject.Destination.Latitude;
+        public double? DestinationLng => ViewObject.Destination.Longitude;
     }
 }
