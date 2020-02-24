@@ -27,8 +27,8 @@ namespace PlacesAPI.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\AndyS\\source\\repos\\PlacesAPI\\PlacesAPI\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
-                //optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\asmith\\source\\repos\\PlacesApi\\PlacesApi\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
+                //optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\AndyS\\source\\repos\\PlacesAPI\\PlacesAPI\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
+                optionsBuilder.UseSqlServer("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=C:\\Users\\asmith\\source\\repos\\PlacesApi\\PlacesApi\\Database\\Travel.mdf; Integrated Security = True;Connect Timeout=30");
             }
         }
 
