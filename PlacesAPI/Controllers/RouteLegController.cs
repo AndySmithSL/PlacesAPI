@@ -66,7 +66,14 @@ namespace PlacesAPI.Controllers
                         .RouteLeg
                         .Include(x => x.Route)
                         .Include(x => x.Origin)
+                            .ThenInclude(x => x.TerritoryPlaces)
+                                .ThenInclude(x => x.Territory)
+                        .Include(x => x.Origin)
+                            .ThenInclude(x => x.PlaceGroupSets)
+                                .ThenInclude(x => x.PlaceGroup)
                         .Include(x => x.Destination)
+                            .ThenInclude(x => x.TerritoryPlaces)
+                                .ThenInclude(x => x.Territory)
                         .FirstOrDefault(x => x.Id == id);
         }
 
