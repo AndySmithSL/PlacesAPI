@@ -68,12 +68,17 @@ namespace PlacesAPI.Controllers
                         .Include(x => x.Origin)
                             .ThenInclude(x => x.TerritoryPlaces)
                                 .ThenInclude(x => x.Territory)
+                                    .ThenInclude(x => x.Flag)
                         .Include(x => x.Origin)
                             .ThenInclude(x => x.PlaceGroupSets)
                                 .ThenInclude(x => x.PlaceGroup)
                         .Include(x => x.Destination)
                             .ThenInclude(x => x.TerritoryPlaces)
                                 .ThenInclude(x => x.Territory)
+                                    .ThenInclude(x => x.Flag)
+                        .Include(x => x.Destination)
+                            .ThenInclude(x => x.PlaceGroupSets)
+                                .ThenInclude(x => x.PlaceGroup)
                         .FirstOrDefault(x => x.Id == id);
         }
 

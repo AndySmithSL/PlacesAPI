@@ -32,14 +32,14 @@ namespace PlacesAPI.Views.Base
 
         #region Foreign Properties
 
-        //[JsonIgnore]
-        //public ICollection<TerritoryPlaceView> TerritoryPlaces => GetViewList<TerritoryPlaceView, TerritoryPlace>(ViewObject.TerritoryPlaces);
+        [JsonIgnore]
+        public ICollection<TerritoryPlaceView> TerritoryPlaces => GetViewList<TerritoryPlaceView, TerritoryPlace>(ViewObject.TerritoryPlaces);
+
+        [JsonIgnore]
+        public ICollection<PlaceGroupSetView> PlaceGroupSets => GetViewList<PlaceGroupSetView, PlaceGroupSet>(ViewObject.PlaceGroupSets);
 
         //[JsonIgnore]
-        //public ICollection<PlaceGroupSetView> PlaceGroupSets => GetViewList<PlaceGroupSetView, PlaceGroupSet>(ViewObject.PlaceGroupSets);
-
-        //[JsonIgnore]
-        //public ICollection<DriveLegView> OriginLegs => GetViewList<DriveLegView, DriveLeg>(ViewObject.OriginLegs);
+        //public ICollection<DriveLegView> OriginLegs => GetViewList<DriveLegView, DriveLeg>(ViewObject.DriveOriginLegs);
 
         //[JsonIgnore]
         //public ICollection<DriveLegView> DestinationLegs => GetViewList<DriveLegView, DriveLeg>(ViewObject.DestinationLegs);
@@ -53,8 +53,8 @@ namespace PlacesAPI.Views.Base
         [JsonIgnore]
         public ICollection<TerritoryView> Territories => GetViewList<TerritoryView, Territory>(ViewObject.Territories);
 
-        //[JsonIgnore]
-        //public ICollection<PlaceGroupView> Groups => PlaceGroupSets.Select(x => x.PlaceGroup).Distinct(x => x.Id).ToList();
+        [JsonIgnore]
+        public ICollection<PlaceGroupView> Groups => PlaceGroupSets.Select(x => x.PlaceGroup).Distinct(x => x.Id).ToList();
 
         #endregion Other Properties
     }
