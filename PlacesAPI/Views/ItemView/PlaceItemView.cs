@@ -1,4 +1,10 @@
-﻿using PlacesAPI.Code.Classes;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using PlacesAPI.Code.Classes;
+using PlacesAPI.Code.Classes.Elevation;
+using PlacesAPI.Code.Classes.Weather;
+using PlacesAPI.Code.Constants;
+using PlacesAPI.Code.Interfaces;
 using PlacesAPI.Models;
 using PlacesAPI.Views.Base;
 using PlacesAPI.Views.ListView;
@@ -11,6 +17,8 @@ namespace PlacesAPI.Views.ItemView
 {
     public class PlaceItemView : PlaceView
     {
+        private IRequestHandler requestHandler = null;
+
         public double LatitudeValue => Latitude.HasValue ? Latitude.Value : 0;
         public string LatitudeDegrees => Latitude.HasValue ? GeoAngle.FromDouble(Latitude.Value).ToString("NS") : "--";
         public double LongitudeValue => Longitude.HasValue ? Longitude.Value : 0;
@@ -34,6 +42,31 @@ namespace PlacesAPI.Views.ItemView
         public ICollection<RouteLegListView> RouteOriginLegs => GetViewList<RouteLegListView, RouteLeg>(ViewObject.RouteOriginLegs);
 
         public ICollection<RouteLegListView> RouteDestinationLegs => GetViewList<RouteLegListView, RouteLeg>(ViewObject.RouteDestinationLegs);
+
+
+        // Request Handler
+
+        private IRequestHandler RequestHandler => requestHandler ?? (requestHandler = new HttpWebRequestHandler());
+
+        // Weather 
+
+        private string DarkSkyUrl => RequestConstants.DarkSkyUrl + Latitude + ", " + Longitude;
+
+        private string WeatherResponse => RequestHandler.GetResponse(DarkSkyUrl);
+
+        private DarkSkyWeather DarkSkyWeather => JsonConvert.DeserializeObject<DarkSkyWeather>(WeatherResponse);
+
+        public Weather Weather => new Weather(DarkSkyWeather);
+
+        // Elevation
+
+        private string GoogleElevationUrl => RequestConstants.GoogleMapsElevationUrl + "&locations=" + Latitude + "," + Longitude;
+        //"https://maps.googleapis.com/maps/api/elevation/json?locations=39.7391536,-104.9847034&key=AIzaSyAiEv5RMy0d7cDM7fhZPHFrBD7weVs1DFc";
+
+        private string ElevationResponse => RequestHandler.GetResponse(GoogleElevationUrl);
+
+        public Elevation Elevation => JsonConvert.DeserializeObject<Elevation>(ElevationResponse);
+
 
     }
 }

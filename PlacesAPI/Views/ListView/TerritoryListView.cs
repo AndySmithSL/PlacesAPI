@@ -1,8 +1,4 @@
 ﻿using PlacesAPI.Views.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PlacesAPI.Views.ListView
 {
@@ -11,7 +7,7 @@ namespace PlacesAPI.Views.ListView
         public new string Continent => ContinentId.HasValue ? ViewObject.Continent.Name : "--";
         public new string Parent => ParentId.HasValue ? ViewObject.Parent.Name : "--";
         public new string Flag => FlagId.HasValue ? ViewObject.Flag.Name : "--";
-
+        public new string TerritoryType => TerritoryTypeId.HasValue ? ViewObject.TerritoryType.Type : "--";
         public string FlagCode => FlagId.HasValue ? ViewObject.Flag.Code : "--";
         public string FlagImage => FlagId.HasValue ? base.Flag.Image : "--";
         public int Places => ViewObject.Places.Count;

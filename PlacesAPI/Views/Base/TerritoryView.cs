@@ -56,8 +56,8 @@ namespace PlacesAPI.Views.Base
         [JsonIgnore]
         public ContinentView Continent => GetView<ContinentView, Continent>(ViewObject.Continent);
 
-        //[JsonIgnore]
-        //public TerritoryTypeView TerritoryType => GetView<TerritoryTypeView, TerritoryType>(ViewObject.TerritoryType);
+        [JsonIgnore]
+        public TerritoryTypeView TerritoryType => GetView<TerritoryTypeView, TerritoryType>(ViewObject.TerritoryType);
 
         [JsonIgnore]
         public FlagView Flag => GetView<FlagView, Flag>(ViewObject.Flag);
