@@ -79,6 +79,9 @@ namespace PlacesAPI.Models
         [NotMapped]
         public ICollection<Place> Places => TerritoryPlaces.Select(f => f.Place).Distinct(f => f.Id).ToList();
 
+        [NotMapped]
+        public ICollection<Place> ChildrenPlaces => Children.SelectMany(x => x.TerritoryPlaces).Select(f => f.Place).Distinct(f => f.Id).ToList();
+
         #endregion Other Properties
     }
 }

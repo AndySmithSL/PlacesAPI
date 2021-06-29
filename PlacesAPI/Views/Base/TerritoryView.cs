@@ -62,8 +62,8 @@ namespace PlacesAPI.Views.Base
         [JsonIgnore]
         public FlagView Flag => GetView<FlagView, Flag>(ViewObject.Flag);
 
-        //[JsonIgnore]
-        //public ICollection<TerritoryView> Children => GetViewList<TerritoryView, Territory>(ViewObject.Children);
+        [JsonIgnore]
+        public ICollection<TerritoryView> Children => GetViewList<TerritoryView, Territory>(ViewObject.Children);
 
         [JsonIgnore]
         public ICollection<TerritoryPlaceView> TerritoryPlaces => GetViewList<TerritoryPlaceView, TerritoryPlace>(ViewObject.TerritoryPlaces);
@@ -73,10 +73,8 @@ namespace PlacesAPI.Views.Base
         #region Other Properties
 
         public string PopulationLabel => Population.HasValue ? Population.Value.ToString("N0") : "--";
-
         public string AreaLabel => Area.HasValue ? Area.Value.ToString("N0") + " km²" : "--";
-
-        public string PartOf => ParentId.HasValue ? Parent.Name : Continent.Name;
+        public string PartOf => ParentId.HasValue ? ViewObject.Parent?.Name : ViewObject.Continent?.Name;
 
         public string CountryIso
         {
@@ -90,7 +88,7 @@ namespace PlacesAPI.Views.Base
                     }
                     else
                     {
-                        return Parent.Isocode;
+                        return ViewObject.Parent.Isocode;
                     }
                 }
                 else
@@ -100,60 +98,14 @@ namespace PlacesAPI.Views.Base
             }
         }
 
+        public string DetailsName => string.IsNullOrEmpty(NativeName) ? FullName : NativeName + " | " + FullName;
 
 
+        [JsonIgnore]
+        public ICollection<PlaceView> Places => GetViewList<PlaceView, Place>(ViewObject.Places);
 
-
-
-        //public string DetailsName => string.IsNullOrEmpty(NativeName) ? FullName : NativeName + " | " + FullName;
-
-        //public string ParentName => ParentId.HasValue ? Parent.Name : "--";
-
-        //public ICollection<PlaceView> Places => TerritoryPlaces.Select(x => x.Place).Distinct(x => x.Id).ToList();
-
-        //public string CountryIso
-        //{
-        //    get
-        //    {
-        //        if (ParentId.HasValue && !String.IsNullOrEmpty(GeoChartLevel))
-        //        {
-        //            if ((Code.Enums.GeoChartLevel)Enum.Parse(typeof(Code.Enums.GeoChartLevel), GeoChartLevel) == Code.Enums.GeoChartLevel.countries)
-        //            {
-        //                return Isocode;
-        //            }
-        //            else
-        //            {
-        //                return Parent.Isocode;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return Isocode;
-        //        }
-        //    }
-        //}
-
-        //public string FlagImage
-        //{
-        //    get
-        //    {
-        //        if (FlagId.HasValue)
-        //        {
-        //            return Flag.ImageSource;
-        //        }
-        //        else
-        //        {
-        //            if (ParentId.HasValue)
-        //            {
-        //                return Parent.FlagImage;
-        //            }
-        //            else
-        //            {
-        //                return "/images/flags/BLANK.png";
-        //            }
-        //        }
-        //    }
-        //}
+        [JsonIgnore]
+        public ICollection<PlaceView> ChildrenPlaces => GetViewList<PlaceView, Place>(ViewObject.ChildrenPlaces);
 
         #endregion Other Properties
     }

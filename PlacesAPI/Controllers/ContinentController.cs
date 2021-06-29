@@ -53,18 +53,40 @@ namespace PlacesAPI.Controllers
         {
             return id => Context
                         .Continent
-                        .Include(x => x.Parent)
-                        .Include(x => x.Children)
-                            .ThenInclude(x => x.Territories)
-                                .ThenInclude(x => x.Parent)
                         .Include(x => x.Children)
                             .ThenInclude(x => x.Territories)
                                 .ThenInclude(x => x.Flag)
-                        .Include(x => x.Territories)
-                            .ThenInclude(x => x.Parent)
+                        .Include(x => x.Children)
+                            .ThenInclude(x => x.Territories)
+                                .ThenInclude(x => x.TerritoryType)
+                        .Include(x => x.Children)
+                            .ThenInclude(x => x.Territories)
+                                .ThenInclude(x => x.Children)
+                                    .ThenInclude(x => x.TerritoryPlaces)
+                                        .ThenInclude(x => x.Place)
                         .Include(x => x.Territories)
                             .ThenInclude(x => x.Flag)
+                        .Include(x => x.Territories)
+                            .ThenInclude(x => x.TerritoryType)
+                        
                         .FirstOrDefault(x => x.Id == id);
+
+
+
+
+            //.Include(x => x.Parent)
+            //    .ThenInclude(x => x.Territories)
+
+            //.ThenInclude(x => x.Parent)
+            //   
+            //        
+           
+            
+            //
+            //    .ThenInclude(x => x.Parent)
+            //.Include(x => x.Territories)
+            //    //
+
         }
 
         protected override Func<IEnumerable<Continent>> GetItemsFunction()

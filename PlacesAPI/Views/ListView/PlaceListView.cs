@@ -14,7 +14,7 @@ namespace PlacesAPI.Views.ListView
         public string LongitudeDegrees => Longitude.HasValue ? GeoAngle.FromDouble(Longitude.Value).ToString("WE") : "--";
 
         // Groups
-        public int Groups => ViewObject.PlaceGroups.Count;
+        public new int Groups => ViewObject.PlaceGroups.Count;
         public IEnumerable<string> GroupItems => ViewObject.PlaceGroups.Select(x => x.Name);
 
         // Drives
